@@ -1,0 +1,26 @@
+---
+- name: Creating the apache
+  package:
+    name: "{{ web_package }}"
+    state: latest
+    
+- name: Edit servername
+  lineinfile:
+    path: "{{ web_path }}"
+    regexp: "^ServerName"
+    inserafter: "#ServerName"
+    line: "ServerName {{ansible_fqdn}}:80"
+    
+- name: Permissions
+  file:
+    path: '/var/www/html'
+    mode: '3750'
+    owner: root
+    group: "{{ web_group }}"
+
+- name: Create index
+  copy:
+    content: "Welcome {{ansible_fqdn}}"
+    dest: '/var/www/html/index.html'
+    mode: 640
+    group: "{{ web_group }}"
