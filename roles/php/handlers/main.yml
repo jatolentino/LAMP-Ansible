@@ -1,0 +1,4 @@
+- name: restart_web
+  systemd:
+    name: "{{ web_service }}"
+    state: restarted
