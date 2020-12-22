@@ -24,3 +24,41 @@
     dest: '/var/www/html/index.html'
     mode: 640
     group: "{{ web_group }}"
+    
+- name: firewall for centos
+  systemd:
+    name: firewalld
+    state: started
+    enabled: true
+  when: ansible_distribution == 'CentOS'
+  
+- name: open centos firewall port
+  firewalld:
+    service: http
+    permanent: true
+    immediate: true
+    state: enabled
+  when: ansible_distribution == 'CentOS'
+    
+- name: firewall for ubuntu
+  systemd:
+    name: ufw
+    state: started
+    enabled: true
+  when: ansible_distribution == 'Ubuntu'
+  
+- name: open ubuntu firewall ports
+  ufw: 
+    port: "{{ item }}"
+    rule: allow
+    state: enabled
+  when: ansible_distribution == 'Ubuntu' 
+  loop:
+    - ssh
+    - http
+
+- name: initialize apache
+  systemd:
+    name: "{{ web_package }}"
+    state: started
+    enabled: true
