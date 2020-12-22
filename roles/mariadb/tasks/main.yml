@@ -1,0 +1,9 @@
+- name: install mariadb
+  package: 
+    name: mariadb-server
+    state: latest
+- name:
+  systemd:
+    name: mariadb
+    state: started
+    enabled: true
