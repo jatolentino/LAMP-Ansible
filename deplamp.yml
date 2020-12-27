@@ -1,6 +1,6 @@
 ---
 - name: Main playbook
-  webservers: all
+  hosts: webservers
   roles:
     - apache
     - php
