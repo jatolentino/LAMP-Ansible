@@ -1,0 +1,12 @@
+[webservers]
+192.168.150.[102:104]
+
+[centos]
+192.168.150.[102:103]
+
+[ubuntu]
+192.168.150.104
+
+[child:pc]
+centos
+ubuntu
