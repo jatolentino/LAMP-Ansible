@@ -2,3 +2,4 @@ admin: wheel
 web_package: httpd
 web_service: httpd
 web_group: apache
+web_path: '/etc/httpd/conf/httpd.conf'
